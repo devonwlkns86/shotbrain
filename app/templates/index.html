@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="grid gap-6">
+  <section class="bg-slate-900/50 rounded-xl p-6 border border-slate-800">
+    <h2 class="text-lg font-semibold mb-3">Upload a screenshot</h2>
+    <form action="/upload" method="post" enctype="multipart/form-data" class="grid gap-3">
+      <input type="file" name="file" accept="image/*" required
+        class="file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-slate-700 file:text-slate-100 file:cursor-pointer text-sm">
+      <button class="bg-indigo-600 hover:bg-indigo-500 rounded-lg px-4 py-2 text-sm font-medium w-max">Upload &
+        Extract</button>
+    </form>
+  </section>
+
+  {% if items %}
+  <section class="grid gap-4">
+    <h2 class="text-lg font-semibold">Your latest uploads</h2>
+    <div class="grid gap-4">
+      {% for it in items %}
+      <article class="rounded-xl border border-slate-800 overflow-hidden">
+        <div class="grid md:grid-cols-2">
+          <img src="{{ it.image_url }}" alt="screenshot" class="w-full h-full object-cover">
+          <div class="p-4">
+            <h3 class="text-sm text-slate-400 mb-2">{{ it.filename }}</h3>
+            <pre class="text-xs whitespace-pre-wrap leading-relaxed text-slate-200">{{ it.text }}</pre>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+</div>
+{% endblock %}
